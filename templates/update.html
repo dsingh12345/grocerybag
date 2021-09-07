@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Update Grocery List{% endblock title %} 
+{% block body %}
+        <div class="container mt-5">
+            <h1>Update Grocery List</h1>
+             <form method ='POST' action='/newlist'>
+            
+            {% csrf_token %}
+            <div class="form-group">
+                    <label>Item Id</label>
+                    <input type="text" class="form-control" name = 'idno' value="{{ins.id}}" placeholder="Itemid" readonly/>
+                </div>
+                <div class="form-group">
+                    <label>Item name</label>
+                    <input type="text" class="form-control" name = 'itemname' value="{{ins.name}}" placeholder="ItemName"/>
+                </div>
+                <div class="form-group">
+                    <label>Item quantity</label>
+                    <input type="text" class="form-control"name='itemquantity'value="{{ins.itemquantity}}" placeholder="Item quantity"/>
+                </div>
+                <div class="form-group">
+                    <label>Item status</label>
+                    <select class="form-control" name='status' value="{{ins.status}}">
+                        <option value="1">PENDING</option>
+                        <option value="2">BOUGHT</option>
+                        <option value="0">NOT AVAILABLE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" class="form-control" name= 'date'value="{{ins.date}}" placeholder="Date">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-danger">
+                </div>
+            </form>
+        </div>
+ {% endblock body %}

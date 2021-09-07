@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %} GroceryBag{% endblock title %} 
+{% block body %}
+
+<div class="container mt-5">
+            <!-- top -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>View Grocery List</h1>
+                </div>
+                <div class="col-lg-6 float-right">
+                <form method="post" action='listdate'>
+                {% csrf_token %}
+                    <div class="row">
+                    
+                        <div class="col-lg-8">
+                            <!-- Date Filtering-->
+                            <input type="date"  name = 'date' class="form-control">
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="submit" class="btn btn-danger" value="filter">
+                        </div>
+                    
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- // top -->
+            <!-- Grocery Cards -->
+            <div class="row mt-4">
+            {% for i in grocerylist2%} 
+                <div class="col-lg-4">
+                    <div class="card m-4">
+                        <div class="card-body">
+                          <h5 class="card-title"> {{i.name}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{i.itemquantity}}</h6>
+                          {% if  i.status == 0 %}
+                          <p class="text-danger">NOT AVAILABLE</p>
+                          {% elif i.status  == 1 %}
+                          <p class="text-info">PENDING</p>
+                           {% else %}
+                            <p class="text-success">BOUGTHT</p>
+                          {% endif %}
+                          <form action="/update/{{i.id}}/" method = 'post' >
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-info">Update</button>
+                         </form>
+                        </div>
+                        
+                      </div>
+                </div>
+                  {% endfor %}
+                <!--- -->
+                <hr>
+                <!-- Loop This -->
+                {% for i in grocerylist1%} 
+                <div class="col-lg-4">
+                    <div class="card m-4">
+                        <div class="card-body">
+                          <h5 class="card-title"> {{i.name}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{i.itemquantity}}</h6>
+                          {% if  i.status == 0 %}
+                          <p class="text-danger">NOT AVAILABLE</p>
+                          {% elif i.status  == 1 %}
+                          <p class="text-info">PENDING</p>
+                           {% else %}
+                            <p class="text-success">BOUGTHT</p>
+                          {% endif %}
+                          <form action="/update/{{i.id}}/" method = 'post' >
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-info">Update</button>
+                         </form>
+                        </div>
+                        
+                      </div>
+                </div>
+                  {% endfor %}
+                  
+            </div>
+        </div>
+{% endblock body %}
